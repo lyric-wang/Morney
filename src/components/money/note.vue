@@ -2,7 +2,7 @@
   <div>
     <label>
       <span>备注</span>
-      <input type="text" name="note" />zai
+      <input type="text" name="note" />
     </label>
   </div>
 </template>

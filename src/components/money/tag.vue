@@ -2,13 +2,13 @@
   <div>
     <div class="tag">
       <ul class="current">
-        <li>L</li>
+        <li>衣</li>
         <li>食</li>
         <li>住</li>
         <li>行</li>
       </ul>
+      <button class="add">新增标签</button>
     </div>
-    <div class="add">新增标签</div>
   </div>
 </template>
 
@@ -17,20 +17,27 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.current {
-  display: flex;
+.tag {
   font-size: 14px;
-
-  > li {
-    border: 1px solid red;
-    width: 30px;
-    height: 24px;
-    background: #d9d9d9;
+  > .current {
     display: flex;
-    align-items: center;
+    > li {
+      margin-right: 10px;
+      border-radius: 12px;
+      width: 50px;
+      $height: 24px;
+      height: $height;
+      background: #d9d9d9;
+      text-align: center;
+      line-height: $height;
+    }
   }
-}
-.add {
-  font-size: 14px;
+  > .add {
+    background: transparent;
+    border: none;
+    color: #999;
+    border-bottom: 1px solid;
+    padding: 10px 3px 3px 3px;
+  }
 }
 </style>
