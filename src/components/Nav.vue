@@ -44,7 +44,7 @@ export default {};
 a {
   border: 1px solid black;
   text-decoration: none;
-  color: #222;
+  color: #aaa;
   display: flex;
   flex-direction: column;
   align-items: center;
