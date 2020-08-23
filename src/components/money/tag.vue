@@ -2,7 +2,7 @@
   <div>
     <div class="tag">
       <ul class="current">
-        <li>衣</li>
+        <li>L</li>
         <li>食</li>
         <li>住</li>
         <li>行</li>
@@ -19,14 +19,18 @@ export default {};
 <style lang="scss" scoped>
 .current {
   display: flex;
+  font-size: 14px;
 
   > li {
-    border-radius: 20px;
+    border: 1px solid red;
+    width: 30px;
+    height: 24px;
     background: #d9d9d9;
-    width: 40px;
-    height: 20px;
     display: flex;
-    justify-content: center;
+    align-items: center;
   }
+}
+.add {
+  font-size: 14px;
 }
 </style>
