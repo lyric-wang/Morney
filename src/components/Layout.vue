@@ -19,7 +19,6 @@ export default {};
 }
 .content {
   flex-grow: 1;
-  border: 1px solid green;
   overflow: auto;
 }
 </style>

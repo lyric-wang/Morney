@@ -4,7 +4,7 @@
       <svg class="icon">
         <use xlink:href="#icon-money" />
       </svg>
-      <div>记一笔aaaaaa</div>
+      <div>记一笔</div>
     </router-link>
     <router-link to="/labels" class="a">
       <svg class="icon">
@@ -14,7 +14,7 @@
     </router-link>
     <router-link to="/statistics" class="a">
       <svg class="icon">
-        <use xlink:href="#icon-barchart" />
+        <use xlink:href="#icon-tongji" />
       </svg>
       <div>统计</div>
     </router-link>
@@ -27,9 +27,8 @@ export default {};
 
 <style lang="scss" scoped>
 .nav {
-  border: 1px solid red;
   display: flex;
-  justify-content: space-evenly;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
 }
 .icon {
   width: 2em;
@@ -42,11 +41,12 @@ export default {};
   justify-content: center;
 }
 a {
-  border: 1px solid black;
-  text-decoration: none;
+  width: 33.33333%;
   color: #aaa;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 12px;
+  padding: 2px 0;
 }
 </style>
