@@ -6,8 +6,62 @@
         <li>食</li>
         <li>住</li>
         <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
+        <li>衣</li>
+        <li>食</li>
+        <li>住</li>
+        <li>行</li>
       </ul>
-      <button class="add">新增标签</button>
+      <div>
+        <button class="add">新增标签</button>
+      </div>
     </div>
   </div>
 </template>
@@ -19,13 +73,24 @@ export default {};
 <style lang="scss" scoped>
 .tag {
   font-size: 14px;
-  padding: 10px;
+  padding: 2.7vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  border: 1px solid red;
+  overflow: scroll;
   > .current {
     display: flex;
+    flex-wrap: wrap;
+    $width: 94.6vw;
+    margin-right: -$width/50;
+    border: 1px solid yellow;
     > li {
-      margin-right: 10px;
+      margin-right: 2%;
+      margin-top: 5px;
       border-radius: 12px;
-      width: 50px;
+      width: 18%;
       $height: 24px;
       height: $height;
       background: #d9d9d9;
@@ -33,12 +98,13 @@ export default {};
       line-height: $height;
     }
   }
-  > .add {
-    background: transparent;
-    border: none;
-    color: #999;
-    border-bottom: 1px solid;
-    padding: 10px 3px 1px 3px;
-  }
+}
+.add {
+  background: transparent;
+  border: none;
+  color: #999;
+  border-bottom: 1px solid;
+  padding: 10px 3px 1px 3px;
+  bottom: 0;
 }
 </style>

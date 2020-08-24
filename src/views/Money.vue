@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Layout>
-      <Tag />
-      <Note />
-      <Type />
+    <Layout class="layout" :message="'spread'">
       <Number />
+      <Type />
+      <Note />
+      <Tag class="money-tag" />
     </Layout>
   </div>
 </template>
@@ -24,5 +24,15 @@ export default {
 };
 </script>
 
+<style lang="scss">
+.spread {
+  display: flex;
+  flex-direction: column-reverse;
+}
+</style>
 <style lang="scss" scoped>
+.money-tag {
+  max-height: calc(100vh - 32vh - 64px - 64px - 51px - 44px);
+  border: 1px solid blue;
+}
 </style>

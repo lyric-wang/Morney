@@ -1,6 +1,6 @@
 <template>
   <div class="nav-wrapper">
-    <div class="content">
+    <div class="content" :class="message">
       <slot />
     </div>
     <Nav />
@@ -8,7 +8,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["message"],
+};
 </script>
 
 <style lang="scss" scoped>
@@ -19,6 +21,5 @@ export default {};
 }
 .content {
   flex-grow: 1;
-  overflow: auto;
 }
 </style>

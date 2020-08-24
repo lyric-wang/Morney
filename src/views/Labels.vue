@@ -1,14 +1,30 @@
 <template>
   <div>
     <Layout>
-      <p>Labels</p>
+      <div class="one">
+        <Try class="try" />
+      </div>
     </Layout>
   </div>
 </template>
 
 <script>
-export default {};
+import Try from "@/components/try.vue";
+export default {
+  components: {
+    Try,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
+.one {
+  height: 100vh;
+  border: 1px solid red;
+  display: flex;
+  overflow: hidden;
+}
+.try {
+  flex-grow: 1;
+}
 </style>
