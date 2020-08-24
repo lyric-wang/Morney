@@ -19,6 +19,7 @@ export default {};
 <style lang="scss" scoped>
 .tag {
   font-size: 14px;
+  padding: 10px;
   > .current {
     display: flex;
     > li {
@@ -37,7 +38,7 @@ export default {};
     border: none;
     color: #999;
     border-bottom: 1px solid;
-    padding: 10px 3px 3px 3px;
+    padding: 10px 3px 1px 3px;
   }
 }
 </style>

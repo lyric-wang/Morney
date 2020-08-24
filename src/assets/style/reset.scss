@@ -7,9 +7,17 @@ a {
   text-decoration: none;
   color: inherit;
 }
-ul,ol {
+ul,
+ol {
   list-style: none;
 }
-button, input{
+button,
+input {
   font: inherit;
+}
+:focus {
+  outline: none;
+}
+::after {
+  box-sizing: border-box;
 }
