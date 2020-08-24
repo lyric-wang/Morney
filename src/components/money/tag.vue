@@ -1,64 +1,66 @@
 <template>
   <div>
     <div class="tag">
-      <ul class="current">
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-      </ul>
+      <div class="current-wrapper">
+        <ul class="current">
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+          <li>衣</li>
+          <li>食</li>
+          <li>住</li>
+          <li>行</li>
+        </ul>
+      </div>
       <div>
         <button class="add">新增标签</button>
       </div>
@@ -76,26 +78,26 @@ export default {};
   padding: 2.7vw;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   height: 100%;
-  border: 1px solid red;
-  overflow: scroll;
-  > .current {
-    display: flex;
-    flex-wrap: wrap;
-    $width: 94.6vw;
-    margin-right: -$width/50;
-    border: 1px solid yellow;
-    > li {
-      margin-right: 2%;
-      margin-top: 5px;
-      border-radius: 12px;
-      width: 18%;
-      $height: 24px;
-      height: $height;
-      background: #d9d9d9;
-      text-align: center;
-      line-height: $height;
+  > .current-wrapper {
+    height: 100%;
+    overflow: auto;
+    > .current {
+      display: flex;
+      flex-wrap: wrap;
+      $width: 94.6vw;
+      margin-right: -$width/50;
+      > li {
+        margin-right: 2%;
+        margin-top: 5px;
+        border-radius: 12px;
+        width: 18%;
+        $height: 24px;
+        height: $height;
+        background: #d9d9d9;
+        text-align: center;
+        line-height: $height;
+      }
     }
   }
 }

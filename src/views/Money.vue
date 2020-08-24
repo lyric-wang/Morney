@@ -33,6 +33,5 @@ export default {
 <style lang="scss" scoped>
 .money-tag {
   max-height: calc(100vh - 32vh - 64px - 64px - 51px - 44px);
-  border: 1px solid blue;
 }
 </style>
