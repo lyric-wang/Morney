@@ -1,14 +1,25 @@
 <template>
   <div>
     <ul class="type">
-      <li class="selected">支出</li>
-      <li>收入</li>
+      <li :class="cl==='+'&&'selected'" @click="trans('+')">支出</li>
+      <li :class="cl==='-'&&'selected'" @click="trans('-')">收入</li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    //reutrn {
+    //  cl:cl,
+    //};
+  },
+  //methods: {
+  //  trans(el) {
+  //    cl = el;
+  // // },
+  //},
+};
 </script>
 
 <style lang="scss" scoped>
@@ -33,8 +44,6 @@ export default {};
       height: 64px;
       border-bottom: 4px solid;
     }
-  }
-  > .selected::after {
   }
 }
 </style>
