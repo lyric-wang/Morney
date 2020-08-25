@@ -8,19 +8,26 @@
 </template>
 
 <script lang='ts'>
-export default {
-  data() {
-    return {
-      cl: "+",
-    };
-  },
-  methods: {
-    trans(el: string) {
-      (this as any).cl = el;
-      return (this as any).cl;
-    },
-  },
-};
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+@Component
+export default class Types extends Vue {
+  cl = "+";
+}
+//下面这种写法可以
+//export default Vue.extend({
+//  data() {
+//    return {
+//      cl: "+",
+//    };
+//  },
+//  methods: {
+//    trans(el: string) {
+//      this.cl = el;
+//      return this.cl;
+//    },
+//  },
+//});
 </script>
 
 <style lang="scss" scoped>
