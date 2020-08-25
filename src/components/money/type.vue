@@ -1,24 +1,25 @@
 <template>
   <div>
     <ul class="type">
-      <li :class="cl==='+'&&'selected'" @click="trans('+')">支出</li>
-      <li :class="cl==='-'&&'selected'" @click="trans('-')">收入</li>
+      <li :class="cl==='+'&&'selected'" @click="cl='+'">支出</li>
+      <li :class="cl==='-'&&'selected'" @click="cl='-'">收入</li>
     </ul>
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 export default {
   data() {
-    //reutrn {
-    //  cl:cl,
-    //};
+    return {
+      cl: "+",
+    };
   },
-  //methods: {
-  //  trans(el) {
-  //    cl = el;
-  // // },
-  //},
+  methods: {
+    trans(el: string) {
+      (this as any).cl = el;
+      return (this as any).cl;
+    },
+  },
 };
 </script>
 
