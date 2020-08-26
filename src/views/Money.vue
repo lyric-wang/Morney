@@ -3,8 +3,9 @@
     <Layout class="layout" :message="'spread'">
       <Number />
       <Type />
-      <Note />
+      <Note v-on:update:value="value=$event" />
       <Tag class="money-tag" :taglist.sync="taglist" />
+      <div>{{value}}</div>
     </Layout>
   </div>
 </template>
@@ -18,6 +19,7 @@ export default {
   data() {
     return {
       taglist: ["衣", "食", "住", "行", "aaa"],
+      value: "",
     };
   },
   components: {

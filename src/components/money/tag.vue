@@ -21,7 +21,7 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-@Component
+@Component({})
 export default class Tag extends Vue {
   @Prop(Array) taglist: string[] | undefined;
   selectlist: string[] = [];
@@ -39,7 +39,7 @@ export default class Tag extends Vue {
     } else if (this.selectlist.indexOf(inputInfo!) >= 0) {
       window.alert("标签已存在");
     } else {
-      this.$emit("update:taglist", this.taglist!.concat([inputInfo]));
+      this.$emit("update:taglist", this.taglist!.concat([inputInfo!]));
     }
   }
 }
