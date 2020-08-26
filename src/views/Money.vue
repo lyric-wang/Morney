@@ -4,7 +4,7 @@
       <Number />
       <Type />
       <Note />
-      <Tag class="money-tag" />
+      <Tag class="money-tag" :taglist.sync="taglist" />
     </Layout>
   </div>
 </template>
@@ -15,6 +15,11 @@ import Note from "@/components/money/note.vue";
 import Number from "@/components/money/number.vue";
 import Type from "@/components/money/type.vue";
 export default {
+  data() {
+    return {
+      taglist: ["衣", "食", "住", "行", "aaa"],
+    };
+  },
   components: {
     Tag,
     Note,
