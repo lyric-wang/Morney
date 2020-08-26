@@ -2,13 +2,20 @@
   <div>
     <label class="note">
       <span>备注</span>
-      <input type="text" placeholder="在这里输入备注" class="input" />
+      <input type="text" placeholder="在这里输入备注" class="input" v-model="x" />
     </label>
   </div>
 </template>
 
 <script>
-export default {};
+import Vue from "vue";
+export default Vue.extend({
+  data() {
+    return {
+      x: "",
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,27 +1,62 @@
 <template>
   <div>
-    <div class="output">100</div>
+    <div class="output">{{output}}</div>
     <div class="buttons">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>删除</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>清空</button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button class="OK">OK</button>
-      <button class="zero">0</button>
-      <button>.</button>
+      <button @click="inputfunc">1</button>
+      <button @click="inputfunc">2</button>
+      <button @click="inputfunc">3</button>
+      <button @click="remove">删除</button>
+      <button @click="inputfunc">4</button>
+      <button @click="inputfunc">5</button>
+      <button @click="inputfunc">6</button>
+      <button @click="clear">清空</button>
+      <button @click="inputfunc">7</button>
+      <button @click="inputfunc">8</button>
+      <button @click="inputfunc">9</button>
+      <button @click="OK" class="OK">OK</button>
+      <button @click="inputfunc" class="zero">0</button>
+      <button @click="inputfunc">.</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import Vue from "vue";
+import { Component, prop } from "vue-property-decorator";
+@Component
+export default class Number extends Vue {
+  output = "0";
+  inputfunc(event) {
+    const input = event.currentTarget.textContent;
+    if (this.output.length >= 16) {
+      return;
+    } else if (this.output === "0") {
+      if ("1234567890".indexOf(input) >= 0) {
+        this.output = input;
+      } else if (input === ".") {
+        this.output = this.output + input;
+      }
+    } else if (this.output.indexOf(".") >= 0 && input === ".") {
+      return;
+    } else {
+      this.output += input;
+    }
+  }
+  remove() {
+    if (this.output.length === 1) {
+      this.output = "0";
+    } else {
+      const l = this.output.length;
+      this.output = this.output.slice(0, l - 1);
+    }
+  }
+  clear() {
+    this.output = "0";
+  }
+  OK() {
+    return;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
