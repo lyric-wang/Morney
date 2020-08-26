@@ -2,7 +2,7 @@
   <div>
     <label class="note">
       <span>{{x}}</span>
-      <input type="text" placeholder="在这里输入备注" class="input" @input="x = $event.target.value" />
+      <input type="text" placeholder="在这里输入备注" class="input" @input="xxx" />
     </label>
   </div>
 </template>
@@ -14,6 +14,11 @@ export default Vue.extend({
     return {
       x: "",
     };
+  },
+  methods: {
+    xxx(e) {
+      this.x = e.target.value;
+    },
   },
 });
 </script>
