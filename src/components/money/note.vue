@@ -1,7 +1,7 @@
 <template>
   <div>
     <label class="note">
-      <span>{{x}}</span>
+      <span>备注</span>
       <input type="text" placeholder="在这里输入备注" class="input" @input="xxx" />
     </label>
   </div>
@@ -12,12 +12,13 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
-      x: "",
+      note: "",
     };
   },
   methods: {
     xxx(e) {
-      this.x = e.target.value;
+      this.note = e.target.value;
+      this.$emit("update:value", this.note);
     },
   },
 });

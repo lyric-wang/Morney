@@ -22,12 +22,16 @@
 
 <script>
 import Vue from "vue";
-import { Component, prop } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Number extends Vue {
-  output = "0";
+  @Prop(String) value;
+  output = this.value;
   inputfunc(event) {
     const input = event.currentTarget.textContent;
+    console.log(input);
+    console.log(this.output);
+    console.log(this.value);
     if (this.output.length >= 16) {
       return;
     } else if (this.output === "0") {
@@ -54,7 +58,7 @@ export default class Number extends Vue {
     this.output = "0";
   }
   OK() {
-    return;
+    this.$emit("update:value", this.output);
   }
 }
 </script>

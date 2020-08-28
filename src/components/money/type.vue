@@ -1,18 +1,23 @@
 <template>
   <div>
     <ul class="type">
-      <li :class="cl==='+'&&'selected'" @click="cl='+'">支出</li>
-      <li :class="cl==='-'&&'selected'" @click="cl='-'">收入</li>
+      <li :class="cl==='-'&&'selected'" @click="cl='-'">支出</li>
+      <li :class="cl==='+'&&'selected'" @click="cl='+'">收入</li>
     </ul>
   </div>
 </template>
 
 <script lang='ts'>
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Watch, Prop } from "vue-property-decorator";
 @Component
 export default class Types extends Vue {
-  cl = "+";
+  @Prop(String) value: string | undefined;
+  cl = this.value;
+  @Watch("cl", { immediate: true })
+  onClChanged() {
+    this.$emit("update:value", this.cl);
+  }
 }
 //下面这种写法可以
 //export default Vue.extend({

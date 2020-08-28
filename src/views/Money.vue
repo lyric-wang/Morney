@@ -1,11 +1,11 @@
 <template>
   <div>
     <Layout class="layout" :message="'spread'">
-      <Number />
-      <Type />
-      <Note v-on:update:value="value=$event" />
+      <Number :value.sync="output" />
+      <Type :value.sync="type" />
+      <Note v-on:update:value="note=$event" />
       <Tag class="money-tag" :taglist.sync="taglist" />
-      <div>{{value}}</div>
+      <div>{{output}}</div>
     </Layout>
   </div>
 </template>
@@ -18,8 +18,10 @@ import Type from "@/components/money/type.vue";
 export default {
   data() {
     return {
-      taglist: ["衣", "食", "住", "行", "aaa"],
-      value: "",
+      taglist: ["衣", "食", "住", "行"],
+      note: "",
+      type: "-",
+      output: "0",
     };
   },
   components: {
