@@ -20,38 +20,38 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Number extends Vue {
-  @Prop(String) value;
+  @Prop(String) value: string | undefined;
   output = this.value;
-  inputfunc(event) {
-    const input = event.currentTarget.textContent;
+  inputfunc(event: MouseEvent) {
+    const input = (event.currentTarget! as HTMLButtonElement).textContent;
     console.log(input);
     console.log(this.output);
     console.log(this.value);
-    if (this.output.length >= 16) {
+    if (this.output!.length >= 16) {
       return;
     } else if (this.output === "0") {
-      if ("1234567890".indexOf(input) >= 0) {
-        this.output = input;
+      if ("1234567890".indexOf(input!) >= 0) {
+        this.output = input!;
       } else if (input === ".") {
         this.output = this.output + input;
       }
-    } else if (this.output.indexOf(".") >= 0 && input === ".") {
+    } else if (this.output!.indexOf(".") >= 0 && input === ".") {
       return;
     } else {
-      this.output += input;
+      this.output! += input!;
     }
   }
   remove() {
-    if (this.output.length === 1) {
+    if (this.output!.length === 1) {
       this.output = "0";
     } else {
-      const l = this.output.length;
-      this.output = this.output.slice(0, l - 1);
+      const l = this.output!.length;
+      this.output = this.output!.slice(0, l - 1);
     }
   }
   clear() {

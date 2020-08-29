@@ -4,7 +4,7 @@
       <Number :value.sync="output" />
       <Type :value.sync="type" />
       <Note v-on:update:value="note=$event" />
-      <Tag class="money-tag" :taglist.sync="taglist" />
+      <Tag :taglist.sync="taglist" class="money-tag" />
       <div>{{output}}</div>
     </Layout>
   </div>
