@@ -4,8 +4,8 @@
       <div class="current-wrapper">
         <ul class="current">
           <li
-            :class="selectlist.indexOf(tag)>=0?'selected':'unselected'"
-            @click="choose(tag)"
+            :class="selectedTags.indexOf(tag)>=0?'selected':'unselected'"
+            @click="toggle(tag)"
             v-for="tag in taglist"
             :key="tag"
           >{{tag}}</li>
@@ -24,20 +24,24 @@ import { Component, Prop } from "vue-property-decorator";
 @Component({})
 export default class Tag extends Vue {
   @Prop(Array) taglist: string[] | undefined;
-  selectlist: string[] = [];
-  choose(tag: string) {
-    if (this.selectlist.indexOf(tag) >= 0) {
-      this.selectlist.pop();
+  selectedTags: string[] = [];
+  toggle(tag: string) {
+    if (this.selectedTags.indexOf(tag) >= 0) {
+      const index = this.selectedTags.indexOf(tag);
+      this.selectedTags.splice(index, 1);
     } else {
-      this.selectlist.push(tag);
+      this.selectedTags.push(tag);
     }
+    this.$emit("update:selectedTags", this.selectedTags);
   }
   add() {
     const inputInfo = window.prompt("请输入标签名");
     if (inputInfo === "") {
       window.alert("标签名不能为空");
-    } else if (this.selectlist.indexOf(inputInfo!) >= 0) {
+    } else if (this.selectedTags.indexOf(inputInfo!) >= 0) {
       window.alert("标签已存在");
+    } else if (inputInfo === null || inputInfo === undefined) {
+      return;
     } else {
       this.$emit("update:taglist", this.taglist!.concat([inputInfo!]));
     }

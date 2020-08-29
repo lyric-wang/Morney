@@ -59,6 +59,8 @@ export default class Number extends Vue {
   }
   OK() {
     this.$emit("update:value", this.output);
+    this.output = "0";
+    this.$emit("submit");
   }
 }
 </script>
