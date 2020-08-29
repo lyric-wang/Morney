@@ -13,4 +13,7 @@
   font-family: $font-hei;
   font-size: 16px;
 }
+body {
+  background: #f5f5f5;
+}
 </style>
