@@ -47,9 +47,10 @@ export default {};
   fill: currentColor;
   overflow: hidden;
   color: red;
+  margin-right: 8px;
 }
 .tags {
-  padding-left: 16px;
+  padding-left: 20px;
   background: white;
   .tag {
     height: 44px;
@@ -65,7 +66,7 @@ export default {};
   position: relative;
   button {
     position: absolute;
-    top: 30px;
+    top: 40px;
     height: 40px;
     width: 100px;
     background: #767676;
