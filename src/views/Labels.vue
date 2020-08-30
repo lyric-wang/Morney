@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Try from "@/components/try.vue";
+import { tagListModel } from "@/models/tagListModel.ts";
 export default {};
 </script>
 

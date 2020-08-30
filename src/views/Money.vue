@@ -20,13 +20,8 @@ import Note from "@/components/money/note.vue";
 import Number from "@/components/money/number.vue";
 import Type from "@/components/money/type.vue";
 import Component from "vue-class-component";
-type Record = {
-  selectedTags: string[];
-  note: string;
-  type: string;
-  output: string;
-  date?: Date; //意思就是date可以不存在
-};
+import { tagListModel } from "@/models/tagListModel";
+
 @Component({
   components: {
     Tag,
@@ -36,14 +31,14 @@ type Record = {
   },
 })
 export default class Money extends Vue {
-  record: Record = {
+  record: RecordItem = {
     selectedTags: [],
     note: "",
     type: "-",
     output: "0",
   };
-  recordList: Record[] = JSON.parse(localStorage.getItem("record") || "[]");
-  taglist = ["衣", "食", "住", "行"];
+  recordList: RecordItem[] = JSON.parse(localStorage.getItem("record") || "[]");
+  taglist = tagListModel.fetch();
   submit() {
     const record2 = JSON.parse(JSON.stringify(this.record));
     record2.date = new Date();
