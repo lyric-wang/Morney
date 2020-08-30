@@ -2,41 +2,39 @@
   <div>
     <Layout>
       <div class="tags">
-        <li class="tag">
-          <span>衣</span>
+        <router-link :to="`/EditLabel/${tag.id}`" class="tag" v-for="tag in tagList" :key="tag">
+          <span>{{tag.name}}</span>
           <svg class="icon">
             <use xlink:href="#icon-right" />
           </svg>
-        </li>
-        <li class="tag">
-          <span>食</span>
-          <svg class="icon">
-            <use xlink:href="#icon-right" />
-          </svg>
-        </li>
-        <li class="tag">
-          <span>住</span>
-          <svg class="icon">
-            <use xlink:href="#icon-right" />
-          </svg>
-        </li>
-        <li class="tag">
-          <span>行</span>
-          <svg class="icon">
-            <use xlink:href="#icon-right" />
-          </svg>
-        </li>
+        </router-link>
       </div>
       <div class="new">
-        <button>新建标签</button>
+        <button @click="add">新建标签</button>
       </div>
     </Layout>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 import { tagListModel } from "@/models/tagListModel.ts";
-export default {};
+
+@Component
+export default class Labels extends Vue {
+  tagList = tagListModel.fetch();
+  add() {
+    const name = window.prompt("请输入标签名");
+    if (name === null || undefined) {
+      return;
+    } else if (name === "") {
+      window.alert("标签名不能为空");
+    } else {
+      const result = tagListModel.create(name);
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -46,7 +44,7 @@ export default {};
   //vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
-  color: red;
+  color: #333;
   margin-right: 8px;
 }
 .tags {
