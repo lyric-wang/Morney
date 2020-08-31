@@ -8,7 +8,7 @@
     </div>
     <label class="name">
       <span>标签名</span>
-      <input type="text" :placeholder="id" @input="updateName" />
+      <input type="text" :placeholder="name" @input="updateName" />
     </label>
     <div class="delete" @click="remove">
       <button>删除标签</button>
@@ -24,12 +24,13 @@ import { tagListModel } from "@/store/tagListModel";
 @Component
 export default class EditLabel extends Vue {
   id = this.$route.params.id;
+  index = tagListModel
+    .fetch()
+    .map((item) => item.id)
+    .indexOf(this.id);
+  name = tagListModel.fetch()[this.index].name;
   remove() {
-    const index = tagListModel
-      .fetch()
-      .map((item) => item.id)
-      .indexOf(this.id);
-    tagListModel.remove(index);
+    tagListModel.remove(this.index);
     this.$router.back();
   }
   updateName(e) {

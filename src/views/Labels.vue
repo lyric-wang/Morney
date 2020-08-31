@@ -25,14 +25,8 @@ import { tagListModel } from "@/store/tagListModel.ts";
 export default class Labels extends Vue {
   tagList = tagListModel.fetch();
   add() {
-    const name = window.prompt("请输入标签名");
-    if (name === null || undefined) {
-      return;
-    } else if (name === "") {
-      window.alert("标签名不能为空");
-    } else {
-      this.tagList = tagListModel.create(name);
-    }
+    tagListModel.create();
+    console.log(this.tagList);
   }
 }
 </script>

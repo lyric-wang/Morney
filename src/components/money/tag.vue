@@ -7,8 +7,8 @@
             :class="selectedTags.indexOf(tag)>=0?'selected':'unselected'"
             @click="toggle(tag)"
             v-for="tag in taglist"
-            :key="tag"
-          >{{tag}}</li>
+            :key="tag.id"
+          >{{tag.name}}</li>
         </ul>
       </div>
       <div>
@@ -21,11 +21,12 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-@Component({})
-export default class Tag extends Vue {
-  @Prop(Array) taglist: string[] | undefined;
-  selectedTags: string[] = [];
-  toggle(tag: string) {
+import { tagListModel } from "@/store/tagListModel";
+@Component
+export default class Tags extends Vue {
+  taglist = tagListModel.fetch();
+  selectedTags: Tag[] = [];
+  toggle(tag: Tag) {
     if (this.selectedTags.indexOf(tag) >= 0) {
       const index = this.selectedTags.indexOf(tag);
       this.selectedTags.splice(index, 1);
@@ -35,16 +36,7 @@ export default class Tag extends Vue {
     this.$emit("update:selectedTags", this.selectedTags);
   }
   add() {
-    const inputInfo = window.prompt("请输入标签名");
-    if (inputInfo === "") {
-      window.alert("标签名不能为空");
-    } else if (this.selectedTags.indexOf(inputInfo!) >= 0) {
-      window.alert("标签已存在");
-    } else if (inputInfo === null || inputInfo === undefined) {
-      return;
-    } else {
-      this.$emit("update:taglist", this.taglist!.concat([inputInfo!]));
-    }
+    tagListModel.create();
   }
 }
 </script>

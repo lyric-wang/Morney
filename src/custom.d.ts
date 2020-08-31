@@ -9,7 +9,7 @@ type tagListModel = {
   tagList: Tag[];
   fetch: () => Tag[];
   save: () => void;
-  create: (name: string) => Tag[];
+  create: () => Tag[] | void;
   remove: (index: number) => void;
   UpdateTag: (tag: Tag) => void;
 };

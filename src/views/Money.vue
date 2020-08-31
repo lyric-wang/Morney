@@ -4,11 +4,7 @@
       <Number :value.sync="record.output" v-on:submit="submit" />
       <Type :value.sync="record.type" />
       <Note v-on:update:value="record.note=$event" />
-      <Tag
-        :taglist.sync="taglist"
-        @update:selectedTags="record.selectedTags=$event"
-        class="money-tag"
-      />
+      <Tag @update:selectedTags="record.selectedTags=$event" class="money-tag" />
     </Layout>
   </div>
 </template>
@@ -21,7 +17,6 @@ import Number from "@/components/money/number.vue";
 import Type from "@/components/money/type.vue";
 import { Component, Watch } from "vue-property-decorator";
 import { recordListModel } from "@/store/recordListModel";
-import { tagListModel } from "@/store/tagListModel";
 
 @Component({
   components: {
@@ -39,13 +34,8 @@ export default class Money extends Vue {
     output: "0",
   };
   recordList = recordListModel.fetchRecords();
-  taglist = tagListModel.fetch().map((item) => item.name);
   submit() {
     recordListModel.createRecord(this.record);
-  }
-  @Watch("taglist")
-  ontaglistChanged() {
-    tagListModel.save();
   }
 }
 </script>
