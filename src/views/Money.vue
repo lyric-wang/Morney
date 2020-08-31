@@ -20,7 +20,8 @@ import Note from "@/components/money/note.vue";
 import Number from "@/components/money/number.vue";
 import Type from "@/components/money/type.vue";
 import { Component, Watch } from "vue-property-decorator";
-import { tagListModel } from "@/models/tagListModel";
+import { recordListModel } from "@/store/recordListModel";
+import { tagListModel } from "@/store/tagListModel";
 
 @Component({
   components: {
@@ -37,13 +38,14 @@ export default class Money extends Vue {
     type: "-",
     output: "0",
   };
-  recordList: RecordItem[] = JSON.parse(localStorage.getItem("record") || "[]");
+  recordList = recordListModel.fetchRecords();
   taglist = tagListModel.fetch().map((item) => item.name);
   submit() {
-    const record2 = JSON.parse(JSON.stringify(this.record));
-    record2.date = new Date();
-    this.recordList.push(record2);
-    localStorage.setItem("record", JSON.stringify(this.recordList));
+    recordListModel.createRecord(this.record);
+  }
+  @Watch("taglist")
+  ontaglistChanged() {
+    tagListModel.save();
   }
 }
 </script>
