@@ -1,16 +1,16 @@
 <template>
   <Layout>
     <div class="edit">
-      <svg class="icon">
+      <svg class="icon" @click="$router.back()">
         <use xlink:href="#icon-left" />
       </svg>
       <span>编辑标签</span>
     </div>
     <label class="name">
       <span>标签名</span>
-      <input type="text" :placeholder="id" />
+      <input type="text" :placeholder="id" @input="updateName" />
     </label>
-    <div class="delete">
+    <div class="delete" @click="remove">
       <button>删除标签</button>
     </div>
   </Layout>
@@ -19,10 +19,22 @@
 <script>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { tagListModel } from "@/models/tagListModel";
 
 @Component
 export default class EditLabel extends Vue {
   id = this.$route.params.id;
+  remove() {
+    const index = tagListModel
+      .fetch()
+      .map((item) => item.id)
+      .indexOf(this.id);
+    tagListModel.remove(index);
+    this.$router.back();
+  }
+  updateName(e) {
+    tagListModel.UpdateTag({ id: this.id, name: e.target.value });
+  }
 }
 </script>
 

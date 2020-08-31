@@ -2,7 +2,7 @@
   <div>
     <Layout>
       <div class="tags">
-        <router-link :to="`/EditLabel/${tag.id}`" class="tag" v-for="tag in tagList" :key="tag">
+        <router-link :to="`/EditLabel/${tag.id}`" class="tag" v-for="tag in tagList" :key="tag.id">
           <span>{{tag.name}}</span>
           <svg class="icon">
             <use xlink:href="#icon-right" />
@@ -31,7 +31,7 @@ export default class Labels extends Vue {
     } else if (name === "") {
       window.alert("标签名不能为空");
     } else {
-      const result = tagListModel.create(name);
+      this.tagList = tagListModel.create(name);
     }
   }
 }

@@ -19,7 +19,7 @@ import Tag from "@/components/money/tag.vue";
 import Note from "@/components/money/note.vue";
 import Number from "@/components/money/number.vue";
 import Type from "@/components/money/type.vue";
-import Component from "vue-class-component";
+import { Component, Watch } from "vue-property-decorator";
 import { tagListModel } from "@/models/tagListModel";
 
 @Component({
@@ -38,7 +38,7 @@ export default class Money extends Vue {
     output: "0",
   };
   recordList: RecordItem[] = JSON.parse(localStorage.getItem("record") || "[]");
-  taglist = tagListModel.fetch();
+  taglist = tagListModel.fetch().map((item) => item.name);
   submit() {
     const record2 = JSON.parse(JSON.stringify(this.record));
     record2.date = new Date();
