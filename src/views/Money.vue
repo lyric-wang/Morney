@@ -15,8 +15,7 @@ import Tag from "@/components/money/tag.vue";
 import Note from "@/components/money/note.vue";
 import Number from "@/components/money/number.vue";
 import Type from "@/components/money/type.vue";
-import { Component, Watch } from "vue-property-decorator";
-import { recordListModel } from "@/store/recordListModel";
+import { Component } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -33,9 +32,11 @@ export default class Money extends Vue {
     type: "-",
     output: "0",
   };
-  recordList = recordListModel.fetchRecords();
+  get recordList() {
+    return this.$store.state.recordList;
+  }
   submit() {
-    recordListModel.createRecord(this.record);
+    this.$store.commit("createRecord", this.record);
   }
 }
 </script>

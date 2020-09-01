@@ -20,11 +20,10 @@
 
 <script lang='ts'>
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
-import { tagListModel } from "@/store/tagListModel";
+import { Component } from "vue-property-decorator";
 @Component
 export default class Tags extends Vue {
-  taglist = tagListModel.fetch();
+  taglist = this.$store.state.tagList;
   selectedTags: Tag[] = [];
   toggle(tag: Tag) {
     if (this.selectedTags.indexOf(tag) >= 0) {
@@ -36,7 +35,7 @@ export default class Tags extends Vue {
     this.$emit("update:selectedTags", this.selectedTags);
   }
   add() {
-    tagListModel.create();
+    this.$store.commit("createTags");
   }
 }
 </script>

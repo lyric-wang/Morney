@@ -8,7 +8,7 @@
     </div>
     <label class="name">
       <span>标签名</span>
-      <input type="text" :placeholder="name" @input="updateName" />
+      <input type="text" :placeholder="tagList[index].name" @input="updateName" />
     </label>
     <div class="delete" @click="remove">
       <button>删除标签</button>
@@ -16,25 +16,33 @@
   </Layout>
 </template>
 
-<script>
+<script lang='ts'>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { tagListModel } from "@/store/tagListModel";
 
 @Component
 export default class EditLabel extends Vue {
   id = this.$route.params.id;
-  index = tagListModel
-    .fetch()
-    .map((item) => item.id)
-    .indexOf(this.id);
-  name = tagListModel.fetch()[this.index].name;
+  index = this.tagList.map((item: Tag) => item.id).indexOf(this.id);
+  created() {
+    if (this.index === -1) {
+      this.$router.replace("/404");
+    }
+  }
+  get tagList() {
+    return this.$store.state.tagList;
+  }
   remove() {
-    tagListModel.remove(this.index);
+    this.$store.commit("removeTags", this.index);
     this.$router.back();
   }
-  updateName(e) {
-    tagListModel.UpdateTag({ id: this.id, name: e.target.value });
+  updateName(e: InputEvent) {
+    if (e.target) {
+      this.$store.commit("UpdateTags", {
+        id: this.id,
+        name: (e.target as HTMLInputElement).value,
+      });
+    }
   }
 }
 </script>

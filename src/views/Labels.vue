@@ -19,14 +19,12 @@
 <script>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { tagListModel } from "@/store/tagListModel.ts";
 
 @Component
 export default class Labels extends Vue {
-  tagList = tagListModel.fetch();
+  tagList = this.$store.state.tagList;
   add() {
-    tagListModel.create();
-    console.log(this.tagList);
+    this.$store.commit("createTags");
   }
 }
 </script>

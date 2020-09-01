@@ -17,3 +17,7 @@ type Tag = {
   id: string;
   name: string;
 };
+type stateRoot = {
+  tagList: Tag[];
+  recordList: RecordItem[];
+};
