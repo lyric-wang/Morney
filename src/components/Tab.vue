@@ -1,8 +1,12 @@
 <template>
   <div>
     <ul class="type">
-      <li :class="cl==='-'&&'selected'" @click="cl='-'">支出</li>
-      <li :class="cl==='+'&&'selected'" @click="cl='+'">收入</li>
+      <li
+        :class="IsClass(item)"
+        v-for="(item,index) in table"
+        :key="index"
+        @click="changeValue(item.value)"
+      >{{item.name}}</li>
     </ul>
   </div>
 </template>
@@ -11,12 +15,16 @@
 import Vue from "vue";
 import { Component, Watch, Prop } from "vue-property-decorator";
 @Component
-export default class Types extends Vue {
+export default class Tab extends Vue {
   @Prop(String) value: string | undefined;
-  cl = this.value;
-  @Watch("cl", { immediate: true })
-  onClChanged() {
-    this.$emit("update:value", this.cl);
+  @Prop(Array) table: NameTable | undefined;
+  changeValue(value: string) {
+    this.$emit("update:value", value);
+  }
+  IsClass(item: { name: string; value: string }) {
+    return {
+      selected: item.value === this.value,
+    };
   }
 }
 //下面这种写法可以

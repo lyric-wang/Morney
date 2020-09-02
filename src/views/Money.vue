@@ -2,9 +2,9 @@
   <div>
     <Layout class="layout" :message="'spread'">
       <Number :value.sync="record.output" v-on:submit="submit" />
-      <Type :value.sync="record.type" />
+      <Tab :value.sync="record.type" :table="NameTable" />
       <Note v-on:update:value="record.note=$event" />
-      <Tag @update:selectedTags="record.selectedTags=$event" class="money-tag" />
+      <Tag :value.sync="record.type" class="money-tag" />
     </Layout>
   </div>
 </template>
@@ -14,7 +14,7 @@ import Vue from "vue";
 import Tag from "@/components/money/tag.vue";
 import Note from "@/components/money/note.vue";
 import Number from "@/components/money/number.vue";
-import Type from "@/components/money/type.vue";
+import Tab from "@/components/Tab.vue";
 import { Component } from "vue-property-decorator";
 
 @Component({
@@ -22,7 +22,7 @@ import { Component } from "vue-property-decorator";
     Tag,
     Note,
     Number,
-    Type,
+    Tab,
   },
 })
 export default class Money extends Vue {
@@ -32,6 +32,10 @@ export default class Money extends Vue {
     type: "-",
     output: "0",
   };
+  NameTable: NameTable = [
+    { name: "支出", value: "-" },
+    { name: "收入", value: "+" },
+  ];
   get recordList() {
     return this.$store.state.recordList;
   }

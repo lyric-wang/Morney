@@ -21,3 +21,4 @@ type stateRoot = {
   tagList: Tag[];
   recordList: RecordItem[];
 };
+type NameTable = { name: string; value: string }[];
