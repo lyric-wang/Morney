@@ -1,9 +1,9 @@
 type RecordItem = {
-  selectedTags: string[];
+  selectedTags: Tag[];
   note: string;
   type: string;
   output: string;
-  date?: Date; //意思就是date可以不存在
+  date?: string; //意思就是date可以不存在
 };
 type tagListModel = {
   tagList: Tag[];

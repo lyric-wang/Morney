@@ -3,13 +3,17 @@
     <Layout class="layout" :message="'spread'">
       <Number :value.sync="record.output" v-on:submit="submit" />
       <Tab :value.sync="record.type" :table="NameTable" />
-      <Note v-on:update:value="record.note=$event" />
-      <Tag :value.sync="record.type" class="money-tag" />
+      <Note v-on:update:value="record.note = $event" />
+      <Tag
+        :value.sync="record.type"
+        @update:selectedTags="record.selectedTags = $event"
+        class="money-tag"
+      />
     </Layout>
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from "vue";
 import Tag from "@/components/money/tag.vue";
 import Note from "@/components/money/note.vue";

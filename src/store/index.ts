@@ -56,7 +56,7 @@ const store = new Vuex.Store({
     },
     createRecord(state, record: RecordItem) {
       const record2: RecordItem = clone(record);
-      record2.date = new Date();
+      record2.date = new Date().toISOString();
       state.recordList && state.recordList.push(record2);
       store.commit("saveRecords");
     },
