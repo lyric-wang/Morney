@@ -55,10 +55,15 @@ const store = new Vuex.Store({
       );
     },
     createRecord(state, record: RecordItem) {
-      const record2: RecordItem = clone(record);
-      record2.date = new Date().toISOString();
-      state.recordList && state.recordList.push(record2);
-      store.commit("saveRecords");
+      if (record.output === "0") {
+        window.alert("请输入金额");
+      } else {
+        const record2: RecordItem = clone(record);
+        record2.date = new Date().toISOString();
+        state.recordList && state.recordList.push(record2);
+        store.commit("saveRecords");
+        window.alert("提交成功");
+      }
     },
   },
 });

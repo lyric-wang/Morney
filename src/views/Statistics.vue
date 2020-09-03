@@ -2,23 +2,20 @@
   <div>
     <Layout>
       <Tab :table="NameTable" :value.sync="value" />
-      <ul>
+      <ul v-if="JSON.stringify(this.list) !== '{}'">
         <li v-for="(item, index) in list" :key="index">
           <div class="title">
-            <span>{{ item.title }}</span
-            ><span>{{ item.total }}</span>
+            <span>{{ item.title }}</span>
+            <span>{{ item.total }}</span>
           </div>
-          <div
-            class="content"
-            v-for="record in item.content"
-            :key="record.date"
-          >
+          <div class="content" v-for="record in item.content" :key="record.date">
             <span class="tags">{{ getName(record.selectedTags) }}</span>
             <span class="note">{{ record.note }}</span>
             <span class="output">{{ record.output }}</span>
           </div>
         </li>
       </ul>
+      <div v-else class="none">无记录</div>
     </Layout>
   </div>
 </template>
@@ -47,23 +44,30 @@ export default class Statistics extends Vue {
     if (this.recordList.length === 0) {
       return {};
     } else {
-      const sorted = clone(this.recordList)
-        .filter((item) => item.type === this.value)
-        .sort((a: RecordItem, b: RecordItem) => {
+      const a = clone(this.recordList).filter(
+        (item: RecordItem) => item.type === this.value
+      );
+
+      if (JSON.stringify(a) === "[]") {
+        return {};
+      } else {
+        const sorted = a.sort((a: RecordItem, b: RecordItem) => {
           return Date.parse(a.date!) - Date.parse(b.date!);
         }); //先按时间对记录排序，然后再循环，如果date相等就push，不相等就新建一项
-
-      list[0] = { title: sorted[0].date.split("T")[0], content: [] };
-      let j = 0;
-      for (let i = 1; i < sorted.length; i++) {
-        if (sorted[i].date.split("T")[0] === sorted[i - 1].date.split("T")[0]) {
-          list[j].content.push(sorted[i]);
-        } else {
-          j = j + 1;
-          list.push({
-            title: sorted[i].date.split("T")[0],
-            content: [sorted[i]],
-          });
+        list[0] = { title: sorted[0].date.split("T")[0], content: [sorted[0]] };
+        let j = 0;
+        for (let i = 1; i < sorted.length; i++) {
+          if (
+            sorted[i].date.split("T")[0] === sorted[i - 1].date.split("T")[0]
+          ) {
+            list[j].content.push(sorted[i]);
+          } else {
+            j = j + 1;
+            list.push({
+              title: sorted[i].date.split("T")[0],
+              content: [sorted[i]],
+            });
+          }
         }
       }
       list.map((item) => {
@@ -77,10 +81,10 @@ export default class Statistics extends Vue {
     }
   }
   getName(Tags: Tag[]) {
-    const tags = clone(Tags).reduce(function(result: string, item: Tag) {
+    const tags = clone(Tags).reduce(function (result: string, item: Tag) {
       return result === "" ? item.name : result + "," + item.name;
     }, "");
-    return tags;
+    return tags === "" ? "无" : tags;
   }
 }
 </script>
@@ -116,5 +120,9 @@ export default class Statistics extends Vue {
     right: 0px;
     padding: 0 16px 0 0;
   }
+}
+.none {
+  text-align: center;
+  padding: 10px 0 0 0;
 }
 </style>

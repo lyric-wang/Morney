@@ -60,6 +60,7 @@ export default class Tab extends Vue {
     &.selected::after {
       position: absolute;
       bottom: 0;
+      left: 0;
       content: "";
       width: 100%;
       height: 64px;
