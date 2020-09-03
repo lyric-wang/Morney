@@ -2,26 +2,26 @@
   <div>
     <label class="note">
       <span>备注</span>
-      <input type="text" placeholder="在这里输入备注" class="input" @input="xxx" />
+      <input class="input" type="text" placeholder="在这里输入备注" @input="xxx" v-on:fuck="fuck" />
     </label>
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import Vue from "vue";
-export default Vue.extend({
-  data() {
-    return {
-      note: "",
-    };
-  },
-  methods: {
-    xxx(e) {
-      this.note = e.target.value;
-      this.$emit("update:value", this.note);
-    },
-  },
-});
+import { Component, Prop } from "vue-property-decorator";
+@Component
+export default class Note extends Vue {
+  @Prop(String) value: string | undefined;
+  note = "";
+  xxx(e: InputEvent) {
+    this.note = (e.target as HTMLInputElement).value;
+    this.$emit("update:value", this.note);
+  }
+  fuck() {
+    (document.querySelectorAll(".input")[0] as HTMLInputElement).value = "";
+  }
+}
 </script>
 
 <style lang="scss" scoped>

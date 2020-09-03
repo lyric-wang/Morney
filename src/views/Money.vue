@@ -3,12 +3,8 @@
     <Layout class="layout" :message="'spread'">
       <Number :value.sync="record.output" v-on:submit="submit" />
       <Tab :value.sync="record.type" :table="NameTable" />
-      <Note v-on:update:value="record.note = $event" />
-      <Tag
-        :value.sync="record.type"
-        @update:selectedTags="record.selectedTags = $event"
-        class="money-tag"
-      />
+      <Note :value.sync="record.note" :a="a" />
+      <Tag :value.sync="record.type" :selectedTags.sync="record.selectedTags" class="money-tag" />
     </Layout>
   </div>
 </template>
@@ -43,8 +39,17 @@ export default class Money extends Vue {
   get recordList() {
     return this.$store.state.recordList;
   }
+  a = 1;
   submit() {
-    this.$store.commit("createRecord", this.record);
+    this.$store.commit("createRecord", {
+      record: this.record,
+      func: this.clear,
+    });
+    this.$emit("fuck");
+  }
+  clear() {
+    this.record.selectedTags = [];
+    this.record.note = "";
   }
 }
 </script>

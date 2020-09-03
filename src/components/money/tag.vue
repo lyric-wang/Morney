@@ -4,7 +4,7 @@
       <div class="current-wrapper">
         <ul class="current">
           <li
-            :class="selectedTags.indexOf(tag)>=0?'selected':'unselected'"
+            :class="selected.indexOf(tag)>=0?'selected':'unselected'"
             @click="toggle(tag)"
             v-for="tag in taglist"
             :key="tag.id"
@@ -20,19 +20,24 @@
 
 <script lang='ts'>
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Prop, Watch } from "vue-property-decorator";
+import { clone } from "@/lb/clone.ts";
 @Component
 export default class Tags extends Vue {
+  @Prop(Array) selectedTags: Tag[] | undefined;
   taglist = this.$store.state.tagList;
-  selectedTags: Tag[] = [];
+  get selected() {
+    return this.selectedTags;
+  }
   toggle(tag: Tag) {
-    if (this.selectedTags.indexOf(tag) >= 0) {
-      const index = this.selectedTags.indexOf(tag);
-      this.selectedTags.splice(index, 1);
+    console.log(this.selected);
+    if (this.selected!.indexOf(tag) >= 0) {
+      const index = this.selected!.indexOf(tag);
+      this.selected!.splice(index, 1);
     } else {
-      this.selectedTags.push(tag);
+      this.selected!.push(tag);
     }
-    this.$emit("update:selectedTags", this.selectedTags);
+    this.$emit("update:selectedTags", this.selected);
   }
   add() {
     this.$store.commit("createTags");

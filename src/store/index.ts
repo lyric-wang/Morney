@@ -54,7 +54,7 @@ const store = new Vuex.Store({
         JSON.stringify(state.recordList)
       );
     },
-    createRecord(state, record: RecordItem) {
+    createRecord(state, { record, func }) {
       if (record.output === "0") {
         window.alert("请输入金额");
       } else {
@@ -63,6 +63,7 @@ const store = new Vuex.Store({
         state.recordList && state.recordList.push(record2);
         store.commit("saveRecords");
         window.alert("提交成功");
+        func();
       }
     },
   },
