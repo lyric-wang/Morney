@@ -1,6 +1,6 @@
 <template>
   <div class="nav-wrapper">
-    <div class="content" :class="message">
+    <div class="contents" :class="message">
       <slot />
     </div>
     <Nav />
@@ -18,8 +18,15 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  position: relative;
+  overflow: auto;
 }
-.content {
+.contents {
   flex-grow: 1;
+  overflow: auto;
+}
+.nav {
+  width: 100vw;
+  bottom: 0;
 }
 </style>

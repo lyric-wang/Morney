@@ -2,7 +2,7 @@
   <div>
     <label class="note">
       <span>备注</span>
-      <input class="input" type="text" placeholder="在这里输入备注" @input="xxx" v-on:fuck="fuck" />
+      <input class="input" type="text" placeholder="在这里输入备注" @input="xxx" :value="value" />
     </label>
   </div>
 </template>

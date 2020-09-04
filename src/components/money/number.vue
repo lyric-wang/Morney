@@ -77,7 +77,7 @@ export default class Number extends Vue {
   box-shadow: inset 0px 5px 5px -5px #a0a0a0, inset 0px -5px 5px -5px #a0a0a0;
 }
 .buttons {
-  $height: 32vh;
+  $height: 216px;
   height: $height;
   display: flex;
   flex-wrap: wrap;

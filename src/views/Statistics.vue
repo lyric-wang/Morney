@@ -113,11 +113,10 @@ export default class Statistics extends Vue {
     padding: 0 10px;
   }
   .note {
+    flex-grow: 1;
     color: #999;
   }
   .output {
-    position: absolute;
-    right: 0px;
     padding: 0 16px 0 0;
   }
 }

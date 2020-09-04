@@ -61,7 +61,4 @@ export default class Money extends Vue {
 }
 </style>
 <style lang="scss" scoped>
-.money-tag {
-  max-height: calc(100vh - 32vh - 64px - 64px - 51px - 44px);
-}
 </style>

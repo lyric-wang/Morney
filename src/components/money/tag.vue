@@ -51,10 +51,12 @@ export default class Tags extends Vue {
   padding: 2.7vw;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  max-height: calc(100vh - 216px - 64px - 64px - 51px - 44px);
+  min-height: 88px;
   > .current-wrapper {
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     > .current {
       display: flex;
       flex-wrap: wrap;
