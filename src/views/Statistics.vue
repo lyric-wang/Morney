@@ -2,7 +2,7 @@
   <div>
     <Layout>
       <div class="head">账单</div>
-      <Tab :table="NameTable" :value.sync="value" />
+      <Type />
       <ul v-if="JSON.stringify(this.list) !== '{}'">
         <li v-for="(item, index) in list" :key="index">
           <div class="title">
@@ -24,12 +24,12 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import Tab from "@/components/Tab.vue";
+import Type from "@/components/statistics/type.vue";
 import { clone } from "@/lb/clone.ts";
 type List = { title: string; total?: number; content: RecordItem[] }[];
 
 @Component({
-  components: { Tab },
+  components: { Type },
 })
 export default class Statistics extends Vue {
   value = "-";
@@ -53,7 +53,7 @@ export default class Statistics extends Vue {
         return {};
       } else {
         const sorted = a.sort((a: RecordItem, b: RecordItem) => {
-          return Date.parse(a.date!) - Date.parse(b.date!);
+          return Date.parse(b.date!) - Date.parse(a.date!);
         }); //先按时间对记录排序，然后再循环，如果date相等就push，不相等就新建一项
         list[0] = { title: sorted[0].date.split("T")[0], content: [sorted[0]] };
         let j = 0;
@@ -91,15 +91,6 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
-::v-deep li.selected {
-  background: white;
-  &::after {
-    display: none;
-  }
-}
-::v-deep .type > li {
-  height: 50px;
-}
 .head {
   height: 50px;
   display: flex;

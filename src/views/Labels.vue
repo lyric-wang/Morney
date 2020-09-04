@@ -4,6 +4,9 @@
       <div class="labelWrapper">
         <div class="head">
           <span>标签列表</span>
+          <svg class="icon" @click="add">
+            <use xlink:href="#icon-add" />
+          </svg>
         </div>
         <div class="tags">
           <router-link
@@ -17,9 +20,6 @@
               <use xlink:href="#icon-right" />
             </svg>
           </router-link>
-        </div>
-        <div class="new">
-          <button @click="add">新建标签</button>
         </div>
       </div>
     </Layout>
@@ -50,6 +50,18 @@ export default class Labels extends Vue {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #9e9a91;
+    position: relative;
+    .icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      overflow: hidden;
+      color: #b6b6b6;
+      position: absolute;
+      right: 0;
+      margin: 0 10px 0 0;
+    }
   }
   .tags {
     padding-left: 20px;
@@ -74,20 +86,6 @@ export default class Labels extends Vue {
         color: #333;
         margin-right: 8px;
       }
-    }
-  }
-  .new {
-    display: flex;
-    justify-content: center;
-    border: 1px solid black;
-    padding: 20px 0;
-    button {
-      height: 40px;
-      width: 100px;
-      background: #767676;
-      border: none;
-      border-radius: 4px;
-      color: white;
     }
   }
 }
