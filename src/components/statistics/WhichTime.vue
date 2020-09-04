@@ -1,10 +1,10 @@
 <template>
   <div class="back">
     <div class="timeWrapper">
-      <div class="time" @click="year">按年</div>
-      <div class="time" @click="month">按月</div>
       <div class="time" @click="day">按天</div>
-      <div class="tab year"></div>
+      <div class="time" @click="month">按月</div>
+      <div class="time" @click="year">按年</div>
+      <div :class="isClass()"></div>
     </div>
   </div>
 </template>
@@ -14,20 +14,23 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 @Component
 export default class WhichTime extends Vue {
+  time = "year";
   year() {
-    document.querySelectorAll(".tab")[0].classList.remove("day");
-    document.querySelectorAll(".tab")[0].classList.remove("month");
-    document.querySelectorAll(".tab")[0].classList.add("year");
+    this.time = "year";
   }
   month() {
-    document.querySelectorAll(".tab")[0].classList.remove("year");
-    document.querySelectorAll(".tab")[0].classList.remove("day");
-    document.querySelectorAll(".tab")[0].classList.add("month");
+    this.time = "month";
   }
   day() {
-    document.querySelectorAll(".tab")[0].classList.remove("year");
-    document.querySelectorAll(".tab")[0].classList.remove("month");
-    document.querySelectorAll(".tab")[0].classList.add("day");
+    this.time = "day";
+  }
+  isClass() {
+    return {
+      tab: true,
+      year: this.time === "year",
+      month: this.time === "month",
+      day: this.time === "day",
+    };
   }
 }
 </script>
@@ -64,13 +67,13 @@ export default class WhichTime extends Vue {
       position: absolute;
       border-radius: 4px;
       margin: 2px 0;
-      &.year {
+      &.day {
         transform: translateX(2px);
       }
       &.month {
         margin-left: $left1;
       }
-      &.day {
+      &.year {
         margin-left: $left2;
       }
     }

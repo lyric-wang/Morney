@@ -1,31 +1,54 @@
 <template>
   <div class="typeWrapper">
     <ul class="type">
-      <li>支出</li>
-      <li>收入</li>
+      <li :class="isClass('-')" @click="choose('-')">支出</li>
+      <li :class="isClass('+')" @click="choose('+')">收入</li>
     </ul>
   </div>
 </template>
 
-<script>
-export default {};
+<script lang='ts'>
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+@Component
+export default class Type extends Vue {
+  @Prop(String) type: string | undefined;
+  myType = this.type;
+  isClass(item: string) {
+    return {
+      selected: this.type === item,
+    };
+  }
+  choose(str: string) {
+    this.myType = str;
+    this.$emit("update:type", str);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .typeWrapper {
-  background: #f0f1f1;
-  height: 36px;
+  padding: 10px 0;
   display: flex;
   align-items: center;
   .type {
     display: flex;
-    height: 30px;
-    width: 80vw;
-    background: #e1e2e3;
+    width: 100vw;
     align-items: center;
     li {
+      display: inline-block;
       width: 50%;
       text-align: center;
+      position: relative;
+      &.selected::after {
+        content: "";
+        border: 10px solid;
+        border-color: transparent transparent white transparent;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   }
 }

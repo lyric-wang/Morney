@@ -1,32 +1,40 @@
 <template>
-  <div class="wrapper">
-    <Type :type.sync="type" />
-    <ul class="bills" v-if="JSON.stringify(this.list) !== '{}'">
-      <li v-for="(item, index) in list" :key="index">
-        <div class="title">
-          <span>{{ item.title }}</span>
-          <span class="total">{{ '￥'+item.total }}</span>
-        </div>
-        <div class="content" v-for="record in item.content" :key="record.date">
-          <span class="tags">{{ getName(record.selectedTags) }}</span>
-          <span class="note">{{ record.note }}</span>
-          <span class="output">{{ '￥'+record.output }}</span>
-        </div>
-      </li>
-    </ul>
-    <div v-else class="none">无记录</div>
+  <div>
+    <Layout>
+      <div class="head">账单</div>
+      <WhichTime />
+      <Type />
+      <ul v-if="JSON.stringify(this.list) !== '{}'">
+        <li v-for="(item, index) in list" :key="index">
+          <div class="title">
+            <span>{{ item.title }}</span>
+            <span>{{ item.total }}</span>
+          </div>
+          <div class="content" v-for="record in item.content" :key="record.date">
+            <span class="tags">{{ getName(record.selectedTags) }}</span>
+            <span class="note">{{ record.note }}</span>
+            <span class="output">{{ record.output }}</span>
+          </div>
+        </li>
+      </ul>
+      <div v-else class="none">无记录</div>
+    </Layout>
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Type from "@/components/statistics/type.vue";
+import WhichTime from "@/components/statistics/WhichTime.vue";
 import { clone } from "@/lb/clone.ts";
 type List = { title: string; total?: number; content: RecordItem[] }[];
-@Component({ components: { Type } })
-export default class Bills extends Vue {
-  type = "-";
+
+@Component({
+  components: { Type, WhichTime },
+})
+export default class Statistics extends Vue {
+  value = "-";
   get recordList() {
     return this.$store.state.recordList;
   }
@@ -40,7 +48,7 @@ export default class Bills extends Vue {
       return {};
     } else {
       const a = clone(this.recordList).filter(
-        (item: RecordItem) => item.type === this.type
+        (item: RecordItem) => item.type === this.value
       );
 
       if (JSON.stringify(a) === "[]") {
@@ -85,54 +93,39 @@ export default class Bills extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  background: #ef7270;
-  padding-bottom: 16px;
-  .typeWrapper {
-    padding: 10px 0;
-    .type {
-      color: white;
-      display: inline-block;
-      width: 50%;
-      text-align: center;
-    }
+.head {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9e9a91;
+}
+.title {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.content {
+  background: white;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  .tags {
+    padding: 0 10px;
   }
-  .bills {
-    background: white;
-    margin: 0 16px;
-    border-radius: 10px;
-    .title {
-      height: 40px;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 24px;
-      .total {
-        color: #ef7270;
-      }
-    }
-    .content {
-      height: 40px;
-      display: flex;
-      align-items: center;
-      .tags {
-        padding: 0 10px;
-      }
-      .note {
-        flex-grow: 1;
-        color: #999;
-      }
-      .output {
-        padding: 0 16px 0 0;
-        color: #ef7270;
-      }
-    }
-    .none {
-      text-align: center;
-      padding: 10px 0 0 0;
-    }
+  .note {
+    flex-grow: 1;
+    color: #999;
   }
+  .output {
+    padding: 0 16px 0 0;
+  }
+}
+.none {
+  text-align: center;
+  padding: 10px 0 0 0;
 }
 </style>
