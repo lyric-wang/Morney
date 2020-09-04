@@ -1,6 +1,7 @@
 <template>
   <div>
     <Layout>
+      <div class="head">账单</div>
       <Tab :table="NameTable" :value.sync="value" />
       <ul v-if="JSON.stringify(this.list) !== '{}'">
         <li v-for="(item, index) in list" :key="index">
@@ -95,6 +96,15 @@ export default class Statistics extends Vue {
   &::after {
     display: none;
   }
+}
+::v-deep .type > li {
+  height: 50px;
+}
+.head {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .title {
   height: 40px;

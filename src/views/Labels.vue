@@ -2,20 +2,21 @@
   <div>
     <Layout>
       <div class="labelWrapper">
-        <div class="tagsWrapper">
-          <div class="tags">
-            <router-link
-              :to="`/EditLabel/${tag.id}`"
-              class="tag"
-              v-for="tag in tagList"
-              :key="tag.id"
-            >
-              <span>{{tag.name}}</span>
-              <svg class="icon">
-                <use xlink:href="#icon-right" />
-              </svg>
-            </router-link>
-          </div>
+        <div class="head">
+          <span>标签列表</span>
+        </div>
+        <div class="tags">
+          <router-link
+            :to="`/EditLabel/${tag.id}`"
+            class="tag"
+            v-for="tag in tagList"
+            :key="tag.id"
+          >
+            <span>{{tag.name}}</span>
+            <svg class="icon">
+              <use xlink:href="#icon-right" />
+            </svg>
+          </router-link>
         </div>
         <div class="new">
           <button @click="add">新建标签</button>
@@ -44,31 +45,34 @@ export default class Labels extends Vue {
   border: 1px solid red;
   display: flex;
   flex-direction: column;
-  .tagsWrapper {
+  .head {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tags {
+    padding-left: 20px;
+    background: white;
+    height: 440px;
+    overflow: auto;
+    border: 1px solid green;
     flex-grow: 1;
     overflow: auto;
-    border: 1px solid blue;
-    .tags {
-      padding-left: 20px;
-      background: white;
-      height: 440px;
-      overflow: auto;
-      border: 1px solid green;
-      .tag {
-        height: 44px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #e6e6e6;
-        .icon {
-          width: 24px;
-          height: 24px;
-          //vertical-align: -0.15em;
-          fill: currentColor;
-          overflow: hidden;
-          color: #333;
-          margin-right: 8px;
-        }
+    .tag {
+      height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e6e6e6;
+      .icon {
+        width: 24px;
+        height: 24px;
+        //vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+        color: #333;
+        margin-right: 8px;
       }
     }
   }
