@@ -2,6 +2,7 @@
   <div>
     <Layout>
       <div class="head">账单</div>
+      <WhichTime />
       <Type />
       <ul v-if="JSON.stringify(this.list) !== '{}'">
         <li v-for="(item, index) in list" :key="index">
@@ -25,11 +26,12 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Type from "@/components/statistics/type.vue";
+import WhichTime from "@/components/statistics/WhichTime.vue";
 import { clone } from "@/lb/clone.ts";
 type List = { title: string; total?: number; content: RecordItem[] }[];
 
 @Component({
-  components: { Type },
+  components: { Type, WhichTime },
 })
 export default class Statistics extends Vue {
   value = "-";
@@ -96,6 +98,7 @@ export default class Statistics extends Vue {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #9e9a91;
 }
 .title {
   height: 40px;
