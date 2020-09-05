@@ -38,6 +38,7 @@ export default class Type extends Vue {
     li {
       display: inline-block;
       width: 50%;
+      color: white;
       text-align: center;
       position: relative;
       &.selected::after {

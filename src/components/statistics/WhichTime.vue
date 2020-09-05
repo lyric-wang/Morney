@@ -11,10 +11,11 @@
 
 <script lang='ts'>
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Prop, Watch } from "vue-property-decorator";
 @Component
 export default class WhichTime extends Vue {
-  time = "year";
+  @Prop(String) value: string | undefined;
+  time = this.value;
   year() {
     this.time = "year";
   }
@@ -23,6 +24,10 @@ export default class WhichTime extends Vue {
   }
   day() {
     this.time = "day";
+  }
+  @Watch("time")
+  onTimeChanged() {
+    this.$emit("update:value", this.time);
   }
   isClass() {
     return {

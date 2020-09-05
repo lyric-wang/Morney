@@ -42,7 +42,6 @@ export default class Labels extends Vue {
 <style lang="scss" scoped>
 .labelWrapper {
   height: calc(100vh - 44px);
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   .head {
@@ -52,6 +51,7 @@ export default class Labels extends Vue {
     justify-content: center;
     color: #9e9a91;
     position: relative;
+    background: #f0f1f1;
     .icon {
       width: 20px;
       height: 20px;
@@ -68,7 +68,6 @@ export default class Labels extends Vue {
     background: white;
     height: 440px;
     overflow: auto;
-    border: 1px solid green;
     flex-grow: 1;
     overflow: auto;
     .tag {

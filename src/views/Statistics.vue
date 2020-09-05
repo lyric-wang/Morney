@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Layout>
+    <Layout class="layout">
       <div class="head">账单</div>
-      <WhichTime />
-      <Bills />
+      <WhichTime :value.sync="time" />
+      <Bills class="bills" :time="time" />
     </Layout>
   </div>
 </template>
@@ -13,7 +13,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Type from "@/components/statistics/type.vue";
 import WhichTime from "@/components/statistics/WhichTime.vue";
-import Bills from "@/components/statistics/Bills.vue";
+import Bills from "@/components/statistics/bills.vue";
 import { clone } from "@/lb/clone.ts";
 type List = { title: string; total?: number; content: RecordItem[] }[];
 
@@ -33,5 +33,12 @@ export default class Statistics extends Vue {
   align-items: center;
   justify-content: center;
   color: #9e9a91;
+}
+::v-deep .contents {
+  display: flex;
+  flex-direction: column;
+  .bills {
+    flex-grow: 1;
+  }
 }
 </style>

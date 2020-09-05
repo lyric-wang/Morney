@@ -96,7 +96,7 @@ export default class Number extends Vue {
       width: 50%;
       height: $height/4;
     }
-    $gc: #f2f2f2;
+    $gc: #e8bab9;
     &:nth-child(1) {
       background: $gc;
     }
