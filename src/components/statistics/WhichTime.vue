@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";
 @Component
@@ -72,8 +72,9 @@ export default class WhichTime extends Vue {
       position: absolute;
       border-radius: 4px;
       margin: 2px 0;
+      transition: all 1s;
       &.day {
-        transform: translateX(2px);
+        margin-left: 2px;
       }
       &.month {
         margin-left: $left1;

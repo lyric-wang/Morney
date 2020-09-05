@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 @Component
@@ -48,6 +48,7 @@ export default class Type extends Vue {
         position: absolute;
         bottom: -10px;
         left: 50%;
+        transition: all 1s;
         transform: translateX(-50%);
       }
     }

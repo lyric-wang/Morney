@@ -29,10 +29,12 @@ export default class Number extends Vue {
   output = this.value;
   inputfunc(event: MouseEvent) {
     const input = (event.currentTarget! as HTMLButtonElement).textContent;
-    console.log(input);
-    console.log(this.output);
-    console.log(this.value);
     if (this.output!.length >= 16) {
+      return;
+    } else if (
+      this.output!.split(".")[1] &&
+      this.output!.split(".")[1].length >= 2
+    ) {
       return;
     } else if (this.output === "0") {
       if ("1234567890".indexOf(input!) >= 0) {

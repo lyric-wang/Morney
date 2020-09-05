@@ -1,9 +1,9 @@
 <template>
   <div>
     <Layout class="layout">
-      <div class="head">账单</div>
       <WhichTime :value.sync="time" />
       <Bills class="bills" :time="time" />
+      <Tab />
     </Layout>
   </div>
 </template>
@@ -27,13 +27,6 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.head {
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #9e9a91;
-}
 ::v-deep .contents {
   display: flex;
   flex-direction: column;

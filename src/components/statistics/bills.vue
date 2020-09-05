@@ -1,35 +1,78 @@
 <template>
   <div class="wrapper">
     <Type :type.sync="type" />
-    <div class="ulWrapper" v-if="JSON.stringify(this.list) !== '{}'">
+    <v-touch
+      v-on:swipeleft="current -= 1"
+      v-on:swiperight="current += 1"
+      class="ulWrapper"
+    >
       <ul class="bills">
-        <li v-for="(item, index) in list" :key="index">
+        <li>
           <div class="title">
-            <span>{{ item.title }}</span>
-            <span class="total">{{ '￥'+item.total }}</span>
+            <svg class="icon" @click="current -= 1">
+              <use xlink:href="#icon-left" />
+            </svg>
+            <span>{{ currentTime }}</span>
+            <svg class="icon" @click="current += 1">
+              <use xlink:href="#icon-right" />
+            </svg>
           </div>
-          <div class="content" v-for="record in item.content" :key="record.date">
-            <span class="tags">{{ getName(record.selectedTags) }}</span>
-            <span class="note">{{ record.note }}</span>
-            <span class="output">{{ '￥'+record.output }}</span>
+          <div class="subtitle">
+            <span v-if="type === '-'">支出</span>
+            <span v-else>收入</span>
+            <span class="total" v-if="currentList">{{
+              "￥" + currentList.total
+            }}</span>
+            <span class="total" v-else>￥0.00</span>
           </div>
+          <div v-if="currentList">
+            <div
+              class="content"
+              v-for="record in currentList.content"
+              :key="record.date"
+            >
+              <span class="tags">{{ getName(record.selectedTags) }}</span>
+              <span class="note">{{ record.note }}</span>
+              <span class="output">{{ "￥" + record.output }}</span>
+            </div>
+          </div>
+          <div v-else class="none">No Data</div>
         </li>
       </ul>
-    </div>
-    <div v-else class="none">无记录</div>
+    </v-touch>
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import Type from "@/components/statistics/type.vue";
 import { clone } from "@/lb/clone.ts";
-type List = { title: string; total?: number; content: RecordItem[] }[];
+import dayjs from "dayjs";
+import VueTouch from "vue-touch";
+Vue.use(VueTouch, { name: "v-touch" });
+type List = { title: string; total?: number; content: RecordItem[] };
 @Component({ components: { Type } })
 export default class Bills extends Vue {
   @Prop(String) time: string | undefined;
   type = "-";
+  current = 0;
+  get currentTime() {
+    const obj = new Date();
+    if (this.time === "day") {
+      return dayjs()
+        .add(this.current, "day")
+        .format("DD/MM/YYYY");
+    } else if (this.time === "month") {
+      return dayjs()
+        .add(this.current, "month")
+        .format("MM/YYYY");
+    } else {
+      return dayjs()
+        .add(this.current, "year")
+        .format("YYYY");
+    }
+  }
   get recordList() {
     return this.$store.state.recordList;
   }
@@ -37,91 +80,119 @@ export default class Bills extends Vue {
     { name: "支出", value: "-" },
     { name: "收入", value: "+" },
   ];
-  get list() {
-    const list: List = [];
+  get list(): List[] {
+    const list: List[] = [];
     if (this.recordList.length === 0) {
-      return {};
+      return [];
     } else {
       const a = clone(this.recordList).filter(
         (item: RecordItem) => item.type === this.type
       );
 
       if (JSON.stringify(a) === "[]") {
-        return {};
+        return [];
       } else {
         const sorted = a.sort((a: RecordItem, b: RecordItem) => {
           return Date.parse(b.date!) - Date.parse(a.date!);
         }); //先按时间对记录排序，然后再循环，如果date相等就push，不相等就新建一项
-        list[0] = { title: this.getDay(sorted[0]), content: [sorted[0]] };
+        list[0] = { title: this.getDate(sorted[0].date), content: [sorted[0]] };
         let j = 0;
         for (let i = 1; i < sorted.length; i++) {
-          if (this.getDay(sorted[i]) === this.getDay(sorted[i - 1])) {
+          if (
+            this.getDate(sorted[i].date) === this.getDate(sorted[i - 1].date)
+          ) {
             list[j].content.push(sorted[i]);
           } else {
             j = j + 1;
             list.push({
-              title: this.getDay(sorted[i]),
+              title: this.getDate(sorted[i].date),
               content: [sorted[i]],
             });
           }
         }
       }
       list.map((item) => {
-        const sum = item.content.reduce((sum, record) => {
+        const sum = item.content.reduce((sum: number, record) => {
           return sum + parseFloat(record.output);
         }, 0);
-        item.total = sum;
+        item.total = parseFloat(sum.toFixed(2));
         return item;
       });
       return list;
     }
   }
+  get currentList() {
+    console.log(this.list);
+    console.log(this.currentTime);
+    const a = this.currentTime;
+    return (
+      this.list.filter((item) => {
+        return item.title === a;
+      })[0] || undefined
+    );
+  }
   getName(Tags: Tag[]) {
-    const tags = clone(Tags).reduce(function (result: string, item: Tag) {
+    const tags = clone(Tags).reduce(function(result: string, item: Tag) {
       return result === "" ? item.name : result + "," + item.name;
     }, "");
     return tags === "" ? "无" : tags;
   }
-  getDay(record: RecordItem) {
-    return record.date!.split("T")[0];
-  }
-  getMonth(record: RecordItem) {
-    const obj = new Date(Date.parse(record.date!));
-    return obj.getFullYear() + "-" + obj.getMonth();
-  }
-  getYear(record: RecordItem) {
-    const obj = new Date(Date.parse(record.date!));
-    return obj.getFullYear();
+  getDate(date: string) {
+    const obj = new Date(Date.parse(date));
+    if (this.time === "day") {
+      return dayjs(date).format("DD/MM/YYYY");
+    } else if (this.time === "month") {
+      return dayjs(date).format("MM/YYYY");
+    } else {
+      return dayjs(date).format("YYYY");
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
-  background: #ef7270;
+  background: #e8bab9;
+  display: flex;
+  flex-direction: column;
   .ulWrapper {
-    height: 100%;
     margin: 0 16px;
     border-radius: 10px 10px 0px 0px;
+    flex-grow: 1;
     background: white;
     .bills {
       margin: 0 10px;
       background: white;
       border-radius: 10px 10px 0px 0px;
       .title {
-        height: 40px;
+        padding: 10px 10px;
         display: flex;
         align-items: center;
-        padding: 0 10px;
         justify-content: space-between;
         font-size: 24px;
+        color: #ef7270;
+        border-bottom: 2px solid #ef7270;
+        .icon {
+          width: 1em;
+          height: 1em;
+          vertical-align: -0.15em;
+          fill: currentColor;
+          overflow: hidden;
+        }
+      }
+      .subtitle {
         color: #8b8880;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
         .total {
           color: #ef7270;
         }
       }
       .content {
-        height: 40px;
+        padding: 10px 0;
         display: flex;
         align-items: center;
         border-top: 1px solid #dddddd;
@@ -134,13 +205,16 @@ export default class Bills extends Vue {
           color: #8b8880;
         }
         .output {
-          padding: 0 16px 0 0;
+          padding: 0 10px;
           color: #ef7270;
         }
       }
       .none {
         text-align: center;
         padding: 10px 0 0 0;
+        color: #8b8880;
+        border-top: 1px solid #dddddd;
+        font-weight: bold;
       }
     }
   }
