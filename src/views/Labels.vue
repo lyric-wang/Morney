@@ -8,7 +8,7 @@
             <use xlink:href="#icon-add" />
           </svg>
         </div>
-        <div class="tags">
+        <div class="tags" v-if="tagList.length!=0">
           <router-link
             :to="`/EditLabel/${tag.id}`"
             class="tag"
@@ -21,6 +21,7 @@
             </svg>
           </router-link>
         </div>
+        <div v-else class="none">None</div>
       </div>
     </Layout>
   </div>
@@ -76,16 +77,23 @@ export default class Labels extends Vue {
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #e6e6e6;
+      color: #666666;
       .icon {
         width: 24px;
         height: 24px;
         //vertical-align: -0.15em;
         fill: currentColor;
         overflow: hidden;
-        color: #333;
+        color: #666666;
         margin-right: 8px;
       }
     }
+  }
+  .none {
+    margin-top: 10px;
+    text-align: center;
+    color: #8b8880;
+    font-weight: bold;
   }
 }
 </style>

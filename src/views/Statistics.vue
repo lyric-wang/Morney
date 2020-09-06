@@ -3,7 +3,6 @@
     <Layout class="layout">
       <WhichTime :value.sync="time" />
       <Bills class="bills" :time="time" />
-      <Tab />
     </Layout>
   </div>
 </template>

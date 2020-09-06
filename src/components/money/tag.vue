@@ -100,7 +100,7 @@ export default class Tags extends Vue {
 }
 @keyframes ding {
   25% {
-    transform: rotate(2deg) translateZ(0);
+    transform: rotate(3deg) translateZ(0);
     /* antialiasing */
     outline: 1px solid transparent;
     -webkit-backface-visibility: hidden;
@@ -108,7 +108,7 @@ export default class Tags extends Vue {
     -webkit-perspective: 1000;
   }
   50% {
-    transform: rotate(-2deg) translateZ(0);
+    transform: rotate(-3deg) translateZ(0);
     /* antialiasing */
     outline: 1px solid transparent;
     -webkit-backface-visibility: hidden;
@@ -116,7 +116,7 @@ export default class Tags extends Vue {
     -webkit-perspective: 1000;
   }
   75% {
-    transform: rotate(2deg) translateZ(0);
+    transform: rotate(3deg) translateZ(0);
     /* antialiasing */
     outline: 1px solid transparent;
     -webkit-backface-visibility: hidden;
@@ -124,7 +124,7 @@ export default class Tags extends Vue {
     -webkit-perspective: 1000;
   }
   100% {
-    transform: rotate(2deg) translateZ(0);
+    transform: rotate(3deg) translateZ(0);
     /* antialiasing */
     outline: 1px solid transparent;
     -webkit-backface-visibility: hidden;

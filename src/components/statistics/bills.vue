@@ -5,11 +5,11 @@
       <ul class="bills">
         <li>
           <div class="title">
-            <svg class="icon" @click="current -= 1">
+            <svg class="icon" @click="move(-1)">
               <use xlink:href="#icon-left" />
             </svg>
-            <span>{{ currentTime }}</span>
-            <svg class="icon" @click="current += 1">
+            <span>{{ getDate(currentTime) }}</span>
+            <svg class="icon" @click="move(1)">
               <use xlink:href="#icon-right" />
             </svg>
           </div>
@@ -23,7 +23,7 @@
             </span>
             <span class="total" v-else>￥0.00</span>
           </div>
-          <div v-if="currentList">
+          <div v-if="currentList" class="contentWrapper">
             <div class="content" v-for="record in currentList.content" :key="record.date">
               <span class="tags">{{ getName(record.selectedTags) }}</span>
               <span class="note">{{ record.note }}</span>
@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Watch } from "vue-property-decorator";
 import Type from "@/components/statistics/type.vue";
 import { clone } from "@/lb/clone.ts";
 import dayjs from "dayjs";
@@ -49,24 +49,22 @@ type List = { title: string; total?: number; content: RecordItem[] };
 @Component({ components: { Type } })
 export default class Bills extends Vue {
   @Prop(String) time: string | undefined;
+  lastTime = this.time;
   type = "-";
   current = 0;
+  currentTime = dayjs();
   created() {
-    console.log(dayjs("09/2020"));
+    console.log("hi");
+    console.log(dayjs("2020-01-31").add(1, "month").format("DD/MM/YYYY"));
   }
-  get currentTime() {
+  move(number: number) {
     //当前展示的列表时间
-    let now = "";
-    const obj = new Date();
     if (this.time === "day") {
-      now = dayjs().add(this.current, "day").format("DD/MM/YYYY");
-      return now;
+      this.currentTime = this.currentTime.add(number, "day");
     } else if (this.time === "month") {
-      now = dayjs().add(this.current, "month").format("MM/YYYY");
-      return now;
-    } else {
-      now = dayjs().add(this.current, "year").format("YYYY");
-      return now;
+      this.currentTime = this.currentTime.add(number, "month");
+    } else if (this.time === "year") {
+      this.currentTime = this.currentTime.add(number, "year");
     }
   }
   get recordList() {
@@ -84,7 +82,6 @@ export default class Bills extends Vue {
       const a = clone(this.recordList).filter(
         (item: RecordItem) => item.type === this.type
       );
-
       if (JSON.stringify(a) === "[]") {
         return [];
       } else {
@@ -120,11 +117,26 @@ export default class Bills extends Vue {
   get currentList() {
     //当前展示的列表
     const a = this.currentTime;
-    return (
-      this.list.filter((item) => {
-        return item.title === a;
-      })[0] || undefined
-    );
+    if (this.time === "day") {
+      return (
+        this.list.filter((item) => {
+          return item.title === this.currentTime.format("DD/MM/YYYY");
+        })[0] || undefined
+      );
+    } else if (this.time === "month") {
+      return (
+        this.list.filter((item) => {
+          return item.title === this.currentTime.format("MM/YYYY");
+        })[0] || undefined
+      );
+    }
+    {
+      return (
+        this.list.filter((item) => {
+          return item.title === this.currentTime.format("YYYY");
+        })[0] || undefined
+      );
+    }
   }
   getName(Tags: Tag[]) {
     const tags = clone(Tags).reduce(function (result: string, item: Tag) {
@@ -133,7 +145,6 @@ export default class Bills extends Vue {
     return tags === "" ? "无" : tags;
   }
   getDate(date: string) {
-    const obj = new Date(Date.parse(date));
     if (this.time === "day") {
       return dayjs(date).format("DD/MM/YYYY");
     } else if (this.time === "month") {
@@ -186,22 +197,26 @@ export default class Bills extends Vue {
           color: #cc9999;
         }
       }
-      .content {
-        padding: 10px 0;
-        display: flex;
-        align-items: center;
-        border-top: 1px solid #dddddd;
-        .tags {
-          padding: 0 10px;
-          color: #8b8880;
-        }
-        .note {
-          flex-grow: 1;
-          color: #8b8880;
-        }
-        .output {
-          padding: 0 10px;
-          color: #cc9999;
+      .contentWrapper {
+        height: calc(100vh - 214px);
+        overflow: auto;
+        .content {
+          padding: 10px 0;
+          display: flex;
+          align-items: center;
+          border-top: 1px solid #dddddd;
+          .tags {
+            padding: 0 10px;
+            color: #8b8880;
+          }
+          .note {
+            flex-grow: 1;
+            color: #8b8880;
+          }
+          .output {
+            padding: 0 10px;
+            color: #cc9999;
+          }
         }
       }
       .none {

@@ -8,10 +8,15 @@
     </div>
     <label class="name">
       <span>标签名</span>
-      <input type="text" :placeholder="tagList[index].name" @input="updateName" />
+      <input
+        type="text"
+        :placeholder="tagList[index].name"
+        @input="currentInput=$event.target.value"
+      />
     </label>
-    <div class="delete" @click="remove">
-      <button>删除标签</button>
+    <div class="buttons">
+      <button class="delete" @click="remove">删除标签</button>
+      <button class="save" @click="updateName">保存</button>
     </div>
   </Layout>
 </template>
@@ -24,6 +29,7 @@ import { Component } from "vue-property-decorator";
 export default class EditLabel extends Vue {
   id = this.$route.params.id;
   index = this.tagList.map((item: Tag) => item.id).indexOf(this.id);
+  currentInput = "";
   created() {
     if (this.index === -1) {
       this.$router.replace("/404");
@@ -36,12 +42,24 @@ export default class EditLabel extends Vue {
     this.$store.commit("removeTags", this.index);
     this.$router.back();
   }
-  updateName(e: InputEvent) {
-    if (e.target) {
+  updateName() {
+    const index = this.$store.state.tagList
+      .map((item: Tag) => item.name)
+      .indexOf(this.currentInput);
+    if (index >= 0 && this.$store.state.tagList[index].id !== this.id) {
+      window.alert("标签名已存在");
+    } else if (
+      this.currentInput === "" ||
+      this.currentInput === undefined ||
+      this.currentInput === null
+    ) {
+      window.alert("标签名不能为空");
+    } else {
       this.$store.commit("UpdateTags", {
         id: this.id,
-        name: (e.target as HTMLInputElement).value,
+        name: this.currentInput,
       });
+      window.alert("保存成功");
     }
   }
 }
@@ -50,7 +68,8 @@ export default class EditLabel extends Vue {
 <style lang="scss" scoped>
 .edit {
   height: 48px;
-  background: white;
+  background: #f0f1f1;
+  color: #9e9a91;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,24 +92,31 @@ export default class EditLabel extends Vue {
   align-items: center;
   padding-left: 16px;
   font-size: 14px;
+  color: #666666;
   input {
     margin-left: 10px;
     border: none;
     flex-grow: 1;
   }
 }
-.delete {
+.buttons {
+  padding-top: 80px;
   position: relative;
   display: flex;
-  justify-content: center;
-  button {
-    position: absolute;
-    top: 40px;
+  justify-content: space-evenly;
+  .delete {
     height: 40px;
     width: 100px;
-    background: #767676;
+    background: #aaa;
     border: none;
     border-radius: 4px;
+    color: white;
+  }
+  .save {
+    width: 100px;
+    background: #b18181;
+    border-radius: 4px;
+    border: none;
     color: white;
   }
 }

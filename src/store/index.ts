@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   } as stateRoot,
   mutations: {
     fetchTags(state) {
-      state.tagList = JSON.parse(localStorage.getItem("tagList") || "[]");
+      state.tagList = JSON.parse(localStorage.getItem("tagList") || JSON.stringify([{ id: '1', name: '衣' }, { id: '2', name: '食' }, { id: '3', name: '住' }, { id: '4', name: '行' }]));
     },
     saveTags(state) {
       localStorage.setItem("tagList", JSON.stringify(state.tagList));
