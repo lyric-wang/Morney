@@ -72,7 +72,7 @@ export default class WhichTime extends Vue {
       position: absolute;
       border-radius: 4px;
       margin: 2px 0;
-      transition: all 1s;
+      transition: all 0.6s;
       &.day {
         margin-left: 2px;
       }

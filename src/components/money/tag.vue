@@ -63,18 +63,28 @@ export default class Tags extends Vue {
       $width: 94.6vw;
       margin-right: -$width/50;
       > li {
-        margin-right: 2%;
-        margin-top: 5px;
+        margin: 2px 2% 2px 0;
         border-radius: 12px;
         width: 18%;
         $height: 24px;
         height: $height;
-        background: #d9d9d9;
+        background: #d8c0c0;
+        color: white;
         text-align: center;
         line-height: $height;
+        overflow: visible;
+        border: 1px solid transparent;
         &.selected {
-          background: #333;
+          background: #c19191;
           color: white;
+          z-index: 1;
+          animation: 0.15s ding 2 alternate-reverse;
+          /* antialiasing */
+          outline: 1px solid transparent;
+          -webkit-backface-visibility: hidden;
+          transform: translateZ(0);
+          will-change: transform;
+          -webkit-perspective: 1000;
         }
       }
     }
@@ -87,5 +97,39 @@ export default class Tags extends Vue {
   border-bottom: 1px solid;
   padding: 10px 3px 1px 3px;
   bottom: 0;
+}
+@keyframes ding {
+  25% {
+    transform: rotate(2deg) translateZ(0);
+    /* antialiasing */
+    outline: 1px solid transparent;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    -webkit-perspective: 1000;
+  }
+  50% {
+    transform: rotate(-2deg) translateZ(0);
+    /* antialiasing */
+    outline: 1px solid transparent;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    -webkit-perspective: 1000;
+  }
+  75% {
+    transform: rotate(2deg) translateZ(0);
+    /* antialiasing */
+    outline: 1px solid transparent;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    -webkit-perspective: 1000;
+  }
+  100% {
+    transform: rotate(2deg) translateZ(0);
+    /* antialiasing */
+    outline: 1px solid transparent;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    -webkit-perspective: 1000;
+  }
 }
 </style>

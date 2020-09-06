@@ -38,7 +38,7 @@ export default {};
     font-size: 12px;
     padding: 2px 0;
     &.selected {
-      color: #ef7270;
+      color: #b18181;
     }
     .icon {
       width: 2em;

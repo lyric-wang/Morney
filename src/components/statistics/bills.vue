@@ -1,11 +1,7 @@
 <template>
   <div class="wrapper">
     <Type :type.sync="type" />
-    <v-touch
-      v-on:swipeleft="current -= 1"
-      v-on:swiperight="current += 1"
-      class="ulWrapper"
-    >
+    <v-touch v-on:swipeleft="current -= 1" v-on:swiperight="current += 1" class="ulWrapper">
       <ul class="bills">
         <li>
           <div class="title">
@@ -20,17 +16,15 @@
           <div class="subtitle">
             <span v-if="type === '-'">支出</span>
             <span v-else>收入</span>
-            <span class="total" v-if="currentList">{{
+            <span class="total" v-if="currentList">
+              {{
               "￥" + currentList.total
-            }}</span>
+              }}
+            </span>
             <span class="total" v-else>￥0.00</span>
           </div>
           <div v-if="currentList">
-            <div
-              class="content"
-              v-for="record in currentList.content"
-              :key="record.date"
-            >
+            <div class="content" v-for="record in currentList.content" :key="record.date">
               <span class="tags">{{ getName(record.selectedTags) }}</span>
               <span class="note">{{ record.note }}</span>
               <span class="output">{{ "￥" + record.output }}</span>
@@ -57,20 +51,22 @@ export default class Bills extends Vue {
   @Prop(String) time: string | undefined;
   type = "-";
   current = 0;
+  created() {
+    console.log(dayjs("09/2020"));
+  }
   get currentTime() {
+    //当前展示的列表时间
+    let now = "";
     const obj = new Date();
     if (this.time === "day") {
-      return dayjs()
-        .add(this.current, "day")
-        .format("DD/MM/YYYY");
+      now = dayjs().add(this.current, "day").format("DD/MM/YYYY");
+      return now;
     } else if (this.time === "month") {
-      return dayjs()
-        .add(this.current, "month")
-        .format("MM/YYYY");
+      now = dayjs().add(this.current, "month").format("MM/YYYY");
+      return now;
     } else {
-      return dayjs()
-        .add(this.current, "year")
-        .format("YYYY");
+      now = dayjs().add(this.current, "year").format("YYYY");
+      return now;
     }
   }
   get recordList() {
@@ -122,8 +118,7 @@ export default class Bills extends Vue {
     }
   }
   get currentList() {
-    console.log(this.list);
-    console.log(this.currentTime);
+    //当前展示的列表
     const a = this.currentTime;
     return (
       this.list.filter((item) => {
@@ -132,7 +127,7 @@ export default class Bills extends Vue {
     );
   }
   getName(Tags: Tag[]) {
-    const tags = clone(Tags).reduce(function(result: string, item: Tag) {
+    const tags = clone(Tags).reduce(function (result: string, item: Tag) {
       return result === "" ? item.name : result + "," + item.name;
     }, "");
     return tags === "" ? "无" : tags;
@@ -152,7 +147,7 @@ export default class Bills extends Vue {
 
 <style lang="scss" scoped>
 .wrapper {
-  background: #e8bab9;
+  background: #d0b3b3;
   display: flex;
   flex-direction: column;
   .ulWrapper {
@@ -170,8 +165,8 @@ export default class Bills extends Vue {
         align-items: center;
         justify-content: space-between;
         font-size: 24px;
-        color: #ef7270;
-        border-bottom: 2px solid #ef7270;
+        color: #cc9999;
+        border-bottom: 2px solid #cc9999;
         .icon {
           width: 1em;
           height: 1em;
@@ -188,7 +183,7 @@ export default class Bills extends Vue {
         align-items: center;
         padding: 10px 10px;
         .total {
-          color: #ef7270;
+          color: #cc9999;
         }
       }
       .content {
@@ -206,7 +201,7 @@ export default class Bills extends Vue {
         }
         .output {
           padding: 0 10px;
-          color: #ef7270;
+          color: #cc9999;
         }
       }
       .none {

@@ -26,16 +26,18 @@ export default class Note extends Vue {
 
 <style lang="scss" scoped>
 .note {
-  background: #f5f5f5;
+  background: #f0f1f1;
   display: flex;
   align-items: center;
   padding: 16px;
   font-size: 14px;
+  color: #666666;
 }
 .input {
   margin-left: 10px;
   border: none;
   background: transparent;
   flex-grow: 1;
+  color: #666666;
 }
 </style>

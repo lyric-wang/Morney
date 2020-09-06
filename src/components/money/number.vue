@@ -69,6 +69,7 @@ export default class Number extends Vue {
 
 <style lang="scss" scoped>
 .output {
+  color: #666666;
   height: 64px;
   display: flex;
   flex-direction: row-reverse;
@@ -84,10 +85,12 @@ export default class Number extends Vue {
   display: flex;
   flex-wrap: wrap;
   position: relative;
+
   > button {
     width: 25%;
     height: $height/4;
     border: none;
+    color: white;
     &.OK {
       height: $height/2;
       position: absolute;
@@ -98,34 +101,34 @@ export default class Number extends Vue {
       width: 50%;
       height: $height/4;
     }
-    $gc: #e8bab9;
+    $gc: #b18181;
     &:nth-child(1) {
-      background: $gc;
+      background: lighten($gc, 4 * 5%);
     }
     &:nth-child(2),
     &:nth-child(5) {
-      background: darken($gc, 4%);
+      background: lighten($gc, 4 * 4%);
     }
     &:nth-child(3),
     &:nth-child(6),
     &:nth-child(9) {
-      background: darken($gc, 4 * 2%);
+      background: lighten($gc, 4 * 3%);
     }
     &:nth-child(4),
     &:nth-child(7),
     &:nth-child(10) {
-      background: darken($gc, 4 * 3%);
+      background: lighten($gc, 4 * 2%);
     }
     &:nth-child(8),
     &:nth-child(11),
     &:nth-child(13) {
-      background: darken($gc, 4 * 4%);
+      background: lighten($gc, 4%);
     }
     &:nth-child(14) {
-      background: darken($gc, 4 * 5%);
+      background: lighten($gc, 2%);
     }
     &:nth-child(12) {
-      background: darken($gc, 4 * 6%);
+      background: $gc;
     }
   }
 }

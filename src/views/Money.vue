@@ -14,7 +14,7 @@ import Vue from "vue";
 import Tag from "@/components/money/tag.vue";
 import Note from "@/components/money/note.vue";
 import Number from "@/components/money/number.vue";
-import Tab from "@/components/Tab.vue";
+import Tab from "@/components/money/tab.vue";
 import { Component } from "vue-property-decorator";
 
 @Component({
