@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <Type :type.sync="type" />
-    <v-touch v-on:swipeleft="current -= 1" v-on:swiperight="current += 1" class="ulWrapper">
+    <div class="ulWrapper">
       <ul class="bills">
         <li>
           <div class="title">
@@ -33,18 +33,16 @@
           <div v-else class="none">No Data</div>
         </li>
       </ul>
-    </v-touch>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop, Watch } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 import Type from "@/components/statistics/type.vue";
 import { clone } from "@/lb/clone.ts";
 import dayjs from "dayjs";
-import VueTouch from "vue-touch";
-Vue.use(VueTouch, { name: "v-touch" });
 type List = { title: string; total?: number; content: RecordItem[] };
 @Component({ components: { Type } })
 export default class Bills extends Vue {
@@ -116,7 +114,6 @@ export default class Bills extends Vue {
   }
   get currentList() {
     //当前展示的列表
-    const a = this.currentTime;
     if (this.time === "day") {
       return (
         this.list.filter((item) => {
@@ -167,6 +164,8 @@ export default class Bills extends Vue {
     flex-grow: 1;
     background: white;
     .bills {
+      display: flex;
+      flex-direction: column;
       margin: 0 10px;
       background: white;
       border-radius: 10px 10px 0px 0px;
@@ -225,6 +224,8 @@ export default class Bills extends Vue {
         color: #8b8880;
         border-top: 1px solid #dddddd;
         font-weight: bold;
+        flex-grow: 1;
+        height: calc(100vh - 214px);
       }
     }
   }

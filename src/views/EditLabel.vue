@@ -8,11 +8,7 @@
     </div>
     <label class="name">
       <span>标签名</span>
-      <input
-        type="text"
-        :placeholder="tagList[index].name"
-        @input="currentInput=$event.target.value"
-      />
+      <input type="text" v-model="currentInput" />
     </label>
     <div class="buttons">
       <button class="delete" @click="remove">删除标签</button>
@@ -29,7 +25,7 @@ import { Component } from "vue-property-decorator";
 export default class EditLabel extends Vue {
   id = this.$route.params.id;
   index = this.tagList.map((item: Tag) => item.id).indexOf(this.id);
-  currentInput = "";
+  currentInput = this.tagList[this.index].name;
   created() {
     if (this.index === -1) {
       this.$router.replace("/404");
@@ -43,6 +39,7 @@ export default class EditLabel extends Vue {
     this.$router.back();
   }
   updateName() {
+    console.log(this.currentInput);
     const index = this.$store.state.tagList
       .map((item: Tag) => item.name)
       .indexOf(this.currentInput);
