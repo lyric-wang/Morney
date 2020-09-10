@@ -5,6 +5,7 @@ import router from "./router";
 import { store } from "./store";
 import Nav from "@/components/Nav.vue";
 import Layout from "@/components/Layout.vue";
+import qrCode from "./assets/qrcode.png";
 
 Vue.config.productionTip = false;
 
@@ -16,3 +17,14 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+if (document.documentElement.clientWidth > 500) {
+  window.alert("请使用手机打开，以保证预览效果");
+  const img = document.createElement("img");
+  img.src = qrCode;
+  img.style.position = "fixed";
+  img.style.left = "50%";
+  img.style.top = "50%";
+  img.style.transform = "translate(-50%,-50%)";
+  document.body.appendChild(img);
+}

@@ -22,3 +22,4 @@ type stateRoot = {
   recordList: RecordItem[];
 };
 type NameTable = { name: string; value: string }[];
+declare module "*.png";
