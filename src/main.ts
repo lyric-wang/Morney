@@ -19,7 +19,7 @@ new Vue({
 }).$mount("#app");
 
 if (document.documentElement.clientWidth > 500) {
-  window.alert("请使用手机打开，以保证预览效果");
+  window.alert("请扫描二维码使用手机打开，以保证预览效果");
   const img = document.createElement("img");
   img.src = qrCode;
   img.style.position = "fixed";
